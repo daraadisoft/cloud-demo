@@ -1,0 +1,1 @@
+export const clickVeryAccount = 'https://us-central1-fir-firebase-737ba.cloudfunctions.net/clickVerifyAccountApi';
