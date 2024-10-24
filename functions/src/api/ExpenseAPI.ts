@@ -43,11 +43,17 @@ export const createExpense = functions.https.onRequest(async function (req, res)
         }
 
         const id = DateHelper.getCurrentTimestamp();
+
+        const type = category.docs[0].data().type;
+
+        delete category.docs[0].data().type;
+
         const result = await admin.firestore().collection('expenses').doc(id).set({
             date: date,
             amount: amount,
             id: id,
             userId: userId,
+            type: type,
             date_in_milisecond: DateHelper.convertDateToTimestamp(date),
             description: description,
             createdAt: admin.firestore.Timestamp.now(),
@@ -120,8 +126,9 @@ export const getExpenses = functions.https.onRequest(async function (req, res): 
         });
 
         if (result == null || count == null) {
+            console.log(countError);
             res.status(200).json({
-                'message': 'Expenses not found : ' + error + '/n' + countError,
+                'message': 'Expenses  : ' + error,
                 'success': false,
                 'data': null,
                 count: 0,
@@ -161,14 +168,14 @@ export const getExpenses = functions.https.onRequest(async function (req, res): 
 
 
         //pie chart
-        const pieChart: { name: string; amount: number; color: string }[] = [];
+        const pieChart: { name: string; amount: number; color: string; url: string, id: string }[] = [];
         groupedTransactions.forEach((group) => {
             group.transactions.forEach((transaction) => {
                 const isExist = pieChart.find(item => item.name === transaction.category.name);
                 if(isExist) {
                     isExist.amount += transaction.amount;
                 } else {
-                    pieChart.push({name: transaction.category.name, amount: transaction.amount, color: transaction.category.color});
+                    pieChart.push({name: transaction.category.name, amount: transaction.amount, color: transaction.category.color, url: transaction.category.url, id: transaction.category.id});
                 }
 
             });
@@ -213,9 +220,11 @@ interface Transaction {
     date: string;
     amount: number;
     category: {
+        id: string;
         type: string;
         name: string;
         color: string;
+        url: string;
     };
 }
 

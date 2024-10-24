@@ -41,7 +41,10 @@ export const onUpdateCategory = functions.firestore.document('categories/{catego
 
             lastDocumentID = result.docs[result.docs.length - 1].id;
             result.docs.forEach((doc : firestore.QueryDocumentSnapshot) => {
-                batch.update(doc.ref, { category: category });
+                batch.update(doc.ref, { 
+                    'type': category.type,
+                    category: category 
+                });
             });
 
             resultFinal = await batch.commit();
