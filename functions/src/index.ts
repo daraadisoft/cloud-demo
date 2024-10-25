@@ -5,6 +5,7 @@ import {createUserEvent} from "./event/AuthEvent";
 import {createCategory,getCategories} from "./api/CategoryAPI";
 import {createExpense, getExpenses} from "./api/ExpenseAPI";
 import {onUpdateCategory} from "./event/CategoryEvent";
+import {scheduleSendNotification} from "./crons/ScheduleSendNotification";
 admin.initializeApp();
 
 
@@ -27,3 +28,6 @@ export const onUpdateCategoryFunction = onUpdateCategory;
 //expense
 export const createExpenseApi = createExpense;
 export const getExpensesApi = getExpenses;
+
+//crons
+export const scheduleSendNotificationFunction = scheduleSendNotification;
