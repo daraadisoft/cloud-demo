@@ -20,7 +20,7 @@ export const createUserEvent = functions.auth.user().onCreate(async function(use
     const linkVerifyAccount = await generateLinkVerifyService(clickVeryAccount+`?email=${user.email}`,user.email as string);
 
     const sendEmailOption = new SendEmailOption(
-        'sum.d@adisoft.io',
+        process.env.EMAIL_SENDER as string,
         user.email as string,
         'Verify account',
         'Click this link to verify your account : ' + linkVerifyAccount

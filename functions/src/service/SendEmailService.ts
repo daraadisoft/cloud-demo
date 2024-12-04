@@ -5,8 +5,8 @@ dotenv.config();
 const transporter = nodemailer.createTransport({
     service:'gmail',
     auth:{
-        user:'sum.d@adisoft.io',
-        pass:'dnhzlqdwnatmxevt'
+        user:'sumdara858@gmail.com',
+        pass:'trajzuolgmsuvgek'
     }
 });
 

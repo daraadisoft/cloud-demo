@@ -4,6 +4,12 @@ import { generateLinkVerifyService } from "../service/GenerateLinkVerifyService"
 import { clickVeryAccount } from "../const/APIURL";
 import { SendEmailOption, sendEmailService } from "../service/SendEmailService";
 import { generateLinkResetPasswordService } from "../service/GenerateLinkResetPassword";
+
+
+export const loginUser = functions.https.onRequest(async function(req,res):Promise<void>{
+    
+});
+
 export const createUser = functions.https.onRequest(async function (req, res): Promise<void> {
     try {
 
@@ -69,6 +75,7 @@ export const createUser = functions.https.onRequest(async function (req, res): P
             displayName: displayName,
             photoURL: deviceToken
         });
+
 
         res.status(200).json({
             'message': 'User created successfully',

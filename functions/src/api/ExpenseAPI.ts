@@ -2,6 +2,8 @@ import { admin, functions } from "../FirebaseConfig";
 import { checkToken } from "../helper/CheckToken";
 import { DateHelper } from "../helper/DateHelper";
 import { helperOperator, queryBuilder, queryBuilderCount, QueryHelper, QueryOperator } from '../helper/QueryBuilder';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export const createExpense = functions.https.onRequest(async function (req, res): Promise<void> {
     try {
